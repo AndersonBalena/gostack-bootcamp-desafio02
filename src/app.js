@@ -44,7 +44,7 @@ app.post("/repositories", (request, response) => {
 
 app.put("/repositories/:id", (request, response) => {
   const { id } = request.params;
-  const { url, title, techs, likes } = request.body;
+  const { url, title, techs} = request.body;
 
   const repositorieIndex = repositories.findIndex(repositorie => repositorie.id === id);
 
@@ -52,16 +52,14 @@ app.put("/repositories/:id", (request, response) => {
     return response.status(400).json({ error: 'Repositorie not exists.' });
   }
 
-  if (likes) {
-    return response.json({ likes:  repositories[repositorieIndex].likes});
-  }
-
+  const likes = repositories[repositorieIndex].likes;
   const repositorie = {
     id,
     url,
     title,
-    techs
-  }
+    techs,
+    likes
+  };
 
   repositories[repositorieIndex] = repositorie;
 
@@ -93,7 +91,7 @@ app.post("/repositories/:id/like", (request, response) => {
 
   repositories[repositorieIndex].likes++;
 
-  return response.json({ likes:  repositories[repositorieIndex].likes});
+  return response.json(repositories[repositorieIndex]);
 });
 
 module.exports = app;
