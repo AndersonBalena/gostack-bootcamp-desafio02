@@ -51,7 +51,7 @@ app.put("/repositories/:id", (request, response) => {
   if (repositorieIndex < 0) {
     return response.status(400).json({ error: 'Repositorie not exists.' });
   }
-  console.log(likes);
+
   if (likes) {
     return response.json({ likes:  repositories[repositorieIndex].likes});
   }
